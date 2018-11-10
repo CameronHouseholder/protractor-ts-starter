@@ -10,10 +10,10 @@ export let config: Config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 90000
     },
+    SELENIUM_PROMISE_MANAGER: false,
     onPrepare: () => {
         let globals = require('protractor');
         let browser = globals.browser;
         browser.manage().window().maximize();
-        browser.manage().timeouts().implicitlyWait(5000);
     }
 }
