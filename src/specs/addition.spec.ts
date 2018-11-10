@@ -1,4 +1,4 @@
-import CalculatorPage from "../pages/calculator-page";
+import CalculatorPage from "../pages/calculator.page";
 
 describe('addition', async () => { 
     let calculatorPage = new CalculatorPage();

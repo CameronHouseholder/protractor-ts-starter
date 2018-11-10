@@ -1,6 +1,7 @@
 import { by, element, browser, ElementFinder } from "protractor";
+import BasePage from "./base.page";
 
-export default class CalculatorPage {
+export default class CalculatorPage extends BasePage {
     // Elements
     private txtFirstNumber: ElementFinder = element(by.model("first"));
     private txtSecondNumber: ElementFinder = element(by.model("second"));
@@ -9,27 +10,30 @@ export default class CalculatorPage {
     private lblResult: ElementFinder = element(by.binding("latest"));
     // URL
     private static readonly url: string = "http://www.way2automation.com/angularjs-protractor/calc/";
+    
+    constructor() {
+        super();
+    } 
 
     public async goTo() {
         await browser.get(CalculatorPage.url);
     }
 
     private async enterFirstNumber(firstNumber: string) {
-        await this.txtFirstNumber.sendKeys(firstNumber);
+        await this.setText(this.txtFirstNumber, firstNumber);
     }
 
     private async enterSecondNumber(secondNumber: string) {
-        await this.txtSecondNumber.sendKeys(secondNumber);
+        await this.setText(this.txtSecondNumber, secondNumber);
     }
 
     private async selectOperator(operator: string) {
-        await this.sddOperator.click();
-        let option = element(by.cssContainingText("option", operator));
-        await option.click();
+        await this.click(this.sddOperator);
+        await this.click(element(by.cssContainingText("option", operator)));
     }
 
     private async clickBtnGo() {
-        await this.btnGo.click();
+        await this.click(this.btnGo);
     }
 
     public async calculate(firstNumber: string, secondNumber: string, operator: string) {
@@ -40,6 +44,6 @@ export default class CalculatorPage {
     }
 
     public async getLblResultText(): Promise<string> {
-        return await this.lblResult.getText();
+        return await this.getText(this.lblResult);
     }
 }

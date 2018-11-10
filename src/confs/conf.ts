@@ -15,6 +15,5 @@ export let config: Config = {
         let globals = require('protractor');
         let browser = globals.browser;
         browser.manage().window().maximize();
-        browser.manage().timeouts().implicitlyWait(5000);
     }
 }
