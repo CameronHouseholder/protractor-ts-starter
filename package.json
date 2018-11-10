@@ -1,0 +1,26 @@
+{
+  "name": "pro-ts-bp",
+  "version": "1.0.0",
+  "description": "Boilerplate code for a protractor and typescript project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CameronHouseholder/pro-ts-bp.git"
+  },
+  "author": "Cameron Householder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CameronHouseholder/pro-ts-bp/issues"
+  },
+  "homepage": "https://github.com/CameronHouseholder/pro-ts-bp#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jasmine": "^2.8.11",
+    "@types/node": "^10.12.2",
+    "protractor": "^5.4.1",
+    "typescript": "^3.1.6"
+  }
+}
