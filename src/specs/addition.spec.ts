@@ -1,17 +1,14 @@
 import CalculatorPage from "../pages/calculator-page";
 
-describe('addition', () => { 
+describe('addition', async () => { 
     let calculatorPage = new CalculatorPage();
-    beforeAll(() => {
-        calculatorPage.goTo();
+
+    beforeAll(async () => {
+        await calculatorPage.goTo();
     });
 
-    it('should add two positive numbers', () => { 
-        calculatorPage.enterFirstNumber("1");
-        calculatorPage.enterSecondNumber("1");
-        calculatorPage.selectOperator("+");
-        calculatorPage.clickBtnGo();
-
-        expect(calculatorPage.getLblResultText()).toEqual("3");
+    it('should add two positive numbers', async () => { 
+        await calculatorPage.calculate("1", "1", "+");
+        expect(await calculatorPage.getLblResultText()).toEqual("2");
     });
 });
