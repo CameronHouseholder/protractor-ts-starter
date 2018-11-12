@@ -1,5 +1,6 @@
-import { by, element, browser, ElementFinder } from "protractor";
+import { by, element, browser, ElementFinder, ElementArrayFinder } from "protractor";
 import BasePage from "./base.page";
+import EnvironmentData from "../data/environment.data";
 
 export default class CalculatorPage extends BasePage {
     // Elements
@@ -8,15 +9,14 @@ export default class CalculatorPage extends BasePage {
     private sddOperator: ElementFinder = element(by.model("operator"));
     private btnGo: ElementFinder = element(by.id("gobutton"));
     private lblResult: ElementFinder = element(by.binding("latest"));
-    // URL
-    private static readonly url: string = "http://www.way2automation.com/angularjs-protractor/calc/";
+    private rowResults: ElementArrayFinder = element.all(by.repeater("result in memory"));
     
     constructor() {
         super();
     } 
 
     public async goTo() {
-        await browser.get(CalculatorPage.url);
+        await browser.get(EnvironmentData.BASE_URL);
     }
 
     private async enterFirstNumber(firstNumber: string) {
@@ -45,5 +45,9 @@ export default class CalculatorPage extends BasePage {
 
     public async getLblResultText(): Promise<string> {
         return await this.getText(this.lblResult);
+    }
+
+    public async getRowResultCount(): Promise<number> {
+        return await this.getCount(this.rowResults);
     }
 }
