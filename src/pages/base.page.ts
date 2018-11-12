@@ -1,4 +1,4 @@
-import { ElementFinder } from "protractor";
+import { ElementFinder, ElementArrayFinder } from "protractor";
 import WaitUtil from "../utils/wait.util";
 
 export default class BasePage {
@@ -21,5 +21,9 @@ export default class BasePage {
     public async click(elem: ElementFinder) {
         await this.waitUtil.waitForElemToBeVisible(elem);
         await elem.click();
+    }
+
+    public async getCount(elems: ElementArrayFinder): Promise<number> {
+        return await elems.count();
     }
 }
