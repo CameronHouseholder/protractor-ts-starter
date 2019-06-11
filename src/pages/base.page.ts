@@ -1,29 +1,29 @@
-import { ElementFinder, ElementArrayFinder } from "protractor";
-import WaitUtil from "../utils/wait.util";
+import { ElementFinder, ElementArrayFinder, browser, protractor } from "protractor";
 
 export default class BasePage {
-    private waitUtil: WaitUtil;
 
-    constructor() {
-        this.waitUtil = new WaitUtil();
-    }
+    constructor() {}
 
-    public async setText(elem: ElementFinder, text: string) {
-        await this.waitUtil.waitForElemToBeVisible(elem);
+    public async setElemText(elem: ElementFinder, text: string) {
+        this.waitForElemToBeVisible(elem);
         await elem.sendKeys(text);
     }
 
-    public async getText(elem: ElementFinder): Promise<string> {
-        await this.waitUtil.waitForElemToBeVisible(elem);
+    public async getElemText(elem: ElementFinder): Promise<string> {
+        this.waitForElemToBeVisible(elem);
         return elem.getText();
     }
 
-    public async click(elem: ElementFinder) {
-        await this.waitUtil.waitForElemToBeVisible(elem);
+    public async clickElem(elem: ElementFinder) {
+        this.waitForElemToBeVisible(elem);
         await elem.click();
     }
 
-    public async getCount(elems: ElementArrayFinder): Promise<number> {
+    public async getElemCount(elems: ElementArrayFinder): Promise<number> {
         return await elems.count();
+    }
+
+    public async waitForElemToBeVisible(elem: ElementFinder) {
+        await browser.wait(protractor.ExpectedConditions.presenceOf(elem), 20000, elem.locator().toString());
     }
 }

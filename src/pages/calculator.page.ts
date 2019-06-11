@@ -1,53 +1,47 @@
 import { by, element, browser, ElementFinder, ElementArrayFinder } from "protractor";
 import BasePage from "./base.page";
-import EnvironmentData from "../data/environment.data";
 
 export default class CalculatorPage extends BasePage {
     // Elements
-    private txtFirstNumber: ElementFinder = element(by.model("first"));
-    private txtSecondNumber: ElementFinder = element(by.model("second"));
+    private txtNumOne: ElementFinder = element(by.model("first"));
+    private txtNumTwo: ElementFinder = element(by.model("second"));
     private sddOperator: ElementFinder = element(by.model("operator"));
     private btnGo: ElementFinder = element(by.id("gobutton"));
     private lblResult: ElementFinder = element(by.binding("latest"));
-    private rowResults: ElementArrayFinder = element.all(by.repeater("result in memory"));
+    private rowHistory: ElementArrayFinder = element.all(by.repeater("result in memory"));
+    // Page variables
+    public static readonly BASE_URL: string = "http://www.way2automation.com/angularjs-protractor/calc/";
     
     constructor() {
         super();
     } 
 
     public async goTo() {
-        await browser.get(EnvironmentData.BASE_URL);
+        await browser.get(CalculatorPage.BASE_URL);
     }
 
-    private async enterFirstNumber(firstNumber: string) {
-        await this.setText(this.txtFirstNumber, firstNumber);
+    public async setNumOne(numOne: string) {
+        return await this.setElemText(this.txtNumOne, numOne);
     }
 
-    private async enterSecondNumber(secondNumber: string) {
-        await this.setText(this.txtSecondNumber, secondNumber);
+    public async setNumTwo(numTwo: string) {
+        await this.setElemText(this.txtNumTwo, numTwo);
     }
 
-    private async selectOperator(operator: string) {
-        await this.click(this.sddOperator);
-        await this.click(element(by.cssContainingText("option", operator)));
+    public async selectOperator(operator: string) {
+        await this.clickElem(this.sddOperator);
+        await this.clickElem(element(by.cssContainingText("option", operator)));
     }
 
-    private async clickBtnGo() {
-        await this.click(this.btnGo);
+    public async clickGo() {
+        await this.clickElem(this.btnGo);
     }
 
-    public async calculate(firstNumber: string, secondNumber: string, operator: string) {
-        await this.enterFirstNumber(firstNumber);
-        await this.enterSecondNumber(secondNumber);
-        await this.selectOperator(operator);
-        await this.clickBtnGo();
+    public async getResult(): Promise<string> {
+        return await this.getElemText(this.lblResult);
     }
 
-    public async getLblResultText(): Promise<string> {
-        return await this.getText(this.lblResult);
-    }
-
-    public async getRowResultCount(): Promise<number> {
-        return await this.getCount(this.rowResults);
+    public async getHistoryCount(): Promise<number> {
+        return await this.getElemCount(this.rowHistory);
     }
 }
