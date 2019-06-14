@@ -3,7 +3,7 @@ import CalcData from "../data/calc.data";
 
 describe('calculator', async () => {
     // Pages
-    const calculatorPage: CalculatorPage = new CalculatorPage();
+    const calculator: CalculatorPage = new CalculatorPage();
     // Libs
     const all = require("../libs/run-all-tests")
     // Test variables
@@ -12,21 +12,21 @@ describe('calculator', async () => {
     let result: string = "";
     // Setup
     beforeAll(async () => {
-        await calculatorPage.goTo();
+        await calculator.goTo();
     });
     // Tests
     all(CalcData.CALC_DATA_PROVIDER, (data: any) => {
         it(data.description, async () => {
-            await calculatorPage.setNumOne(data.numOne);
-            await calculatorPage.selectOperator(data.operator);
-            await calculatorPage.setNumTwo(data.numTwo);
-            await calculatorPage.clickGo();
+            await calculator.setFirstNumber(data.firstNumber);
+            await calculator.selectOperator(data.operator);
+            await calculator.setSecondNumber(data.secondNumber);
+            await calculator.clickGo();
             // Assert the result of the calculation
-            result = await calculatorPage.getResult();
+            result = await calculator.getResult();
             expect(result).toEqual(data.result);
             // Assert the results in history count
             expectedCount++;
-            actualCount = await calculatorPage.getHistoryCount();
+            actualCount = await calculator.getHistoryCount();
             expect(actualCount).toEqual(expectedCount);
         });
     });

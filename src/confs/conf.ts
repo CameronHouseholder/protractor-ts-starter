@@ -6,7 +6,7 @@ export let config: Config = {
         'browserName': 'chrome'
     },
     framework: 'jasmine',
-    specs: ['../specs/addition.spec.js'],
+    specs: ['../specs/calc.spec.js'],
     jasmineNodeOpts: {
         defaultTimeoutInterval: 90000
     },
