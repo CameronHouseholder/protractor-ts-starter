@@ -3,8 +3,8 @@ import BasePage from "./base.page";
 
 export default class CalculatorPage extends BasePage {
     // Elements
-    private txtNumOne: ElementFinder = element(by.model("first"));
-    private txtNumTwo: ElementFinder = element(by.model("second"));
+    private txtFirstNumber: ElementFinder = element(by.model("first"));
+    private txtSecondNumber: ElementFinder = element(by.model("second"));
     private sddOperator: ElementFinder = element(by.model("operator"));
     private btnGo: ElementFinder = element(by.id("gobutton"));
     private lblResult: ElementFinder = element(by.binding("latest"));
@@ -20,12 +20,12 @@ export default class CalculatorPage extends BasePage {
         await browser.get(CalculatorPage.BASE_URL);
     }
 
-    public async setNumOne(numOne: string) {
-        return await this.setElemText(this.txtNumOne, numOne);
+    public async setFirstNumber(firstNumber: string) {
+        return await this.setElemText(this.txtFirstNumber, firstNumber);
     }
 
-    public async setNumTwo(numTwo: string) {
-        await this.setElemText(this.txtNumTwo, numTwo);
+    public async setSecondNumber(secondNumber: string) {
+        await this.setElemText(this.txtSecondNumber, secondNumber);
     }
 
     public async selectOperator(operator: string) {
