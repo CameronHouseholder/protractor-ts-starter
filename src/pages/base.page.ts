@@ -7,6 +7,15 @@ export default class BasePage {
     constructor() {}
 
     /**
+     * Find the element, wait until the element is visible and then click the element
+     * @param elem the element to perform the action on 
+     */
+    public async clickElem(elem: ElementFinder) {
+        await this.waitForElemToBeVisible(elem);
+        await elem.click();
+    }
+
+    /**
      * Find the element, wait until the element is visible, clear the element text and then set the text of the element
      * @param elem the element to perform the action on
      * @param text the text to enter into the element
@@ -60,9 +69,38 @@ export default class BasePage {
     }
 
     /**
+     * Find the select element, wait until the element is visible, and then return the selected option value attribute
+     * @param elem the select element to perform the action
+     * @return the value attribute of the selected option
+     */
+    public async getSelectedElemOptionByValue(elem: ElementFinder): Promise<string> {
+        this.waitForElemToBeVisible(elem);
+        return elem.$("option[selected='selected']").getAttribute('value');
+    }
+
+    /**
+     * Find the select element, wait until the element is visible, and then return the selected option text
+     * @param elem the select element to perform the action
+     * @return the text of the selected option
+     */
+    public async getSelectedElemOptionByText(elem: ElementFinder): Promise<string> {
+        this.waitForElemToBeVisible(elem);
+        return elem.$("option[selected='selected']").getText();
+    }
+
+    /**
+     * Find the elements and then return the element count
+     * @param elems the elements to perform the action on
+     * @return the element count or the number of elements in the element array
+     */
+    public async getElemCount(elems: ElementArrayFinder): Promise<number> {
+        return await elems.count();
+    }
+ 
+    /**
      * Try to find the element and then return a boolean based on if the element is displayed or not
      * @param elem the element to perform the action on
-     * @returns true if the element is displayed, false if the element is not displayed
+     * @return true if the element is displayed, false if the element is not displayed
      */
     public async elemIsDisplayed(elem: ElementFinder): Promise<boolean> {
         let isDisplayed = false;
@@ -77,7 +115,7 @@ export default class BasePage {
     /**
      * Find the element, wait till the element is visible and then return a boolean based on if the element is enabled or not
      * @param elem the element to perform the action on
-     * @returns true if the element is enabled, false if the element is not enabled
+     * @return true if the element is enabled, false if the element is not enabled
      */
     public async elemIsEnabled(elem: ElementFinder): Promise<boolean> {
         await this.waitForElemToBeVisible(elem);
@@ -87,29 +125,11 @@ export default class BasePage {
     /**
      * Find the element, wait till the element is visible and then return a boolean based on if the element is selected or not
      * @param elem the element to perform the action on
-     * @returns true if the element is selected, false if the element is not selected
+     * @return true if the element is selected, false if the element is not selected
      */
     public async elemIsSelected(elem: ElementFinder): Promise<boolean> {
         await this.waitForElemToBeVisible(elem);
         return elem.isSelected();
-    }
-
-    /**
-     * Find the element, wait until the element is visible and then click the element
-     * @param elem the element to perform the action on 
-     */
-    public async clickElem(elem: ElementFinder) {
-        await this.waitForElemToBeVisible(elem);
-        await elem.click();
-    }
-
-    /**
-     * Find the elements and then return the element count
-     * @param elems the elements to perform the action on
-     * @return the element count or the number of elements in the element array
-     */
-    public async getElemCount(elems: ElementArrayFinder): Promise<number> {
-        return await elems.count();
     }
 
     /**
