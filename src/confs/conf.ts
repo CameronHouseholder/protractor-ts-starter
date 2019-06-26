@@ -1,5 +1,6 @@
 import { Config } from 'protractor';
 let HtmlReporter = require('protractor-beautiful-reporter');
+let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 export let config: Config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -9,7 +10,8 @@ export let config: Config = {
     framework: 'jasmine',
     specs: ['../specs/calc.spec.js'],
     jasmineNodeOpts: {
-        defaultTimeoutInterval: 90000
+        defaultTimeoutInterval: 90000,
+        print: function() {}
     },
     SELENIUM_PROMISE_MANAGER: false,
     onPrepare: () => {
@@ -22,5 +24,10 @@ export let config: Config = {
             preserveDirectory: false,
             docTitle: 'The Beautiful Report'
         }).getJasmine2Reporter());
+        jasmine.getEnv().addReporter(new SpecReporter({
+            spec: {
+                displayStacktrace: true
+            }
+        }));
     }
 }
