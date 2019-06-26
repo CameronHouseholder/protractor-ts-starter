@@ -1,6 +1,4 @@
 import { Config } from 'protractor';
-let HtmlReporter = require('protractor-beautiful-reporter');
-let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 export let config: Config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -15,6 +13,8 @@ export let config: Config = {
     },
     SELENIUM_PROMISE_MANAGER: false,
     onPrepare: () => {
+        let HtmlReporter = require('protractor-beautiful-reporter');
+        let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
         let globals = require('protractor');
         let browser = globals.browser;
         browser.manage().window().maximize();
