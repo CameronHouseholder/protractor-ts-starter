@@ -1,4 +1,5 @@
 import { Config } from 'protractor';
+let HtmlReporter = require('protractor-beautiful-reporter');
 
 export let config: Config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -15,5 +16,11 @@ export let config: Config = {
         let globals = require('protractor');
         let browser = globals.browser;
         browser.manage().window().maximize();
+        // reporters
+        jasmine.getEnv().addReporter(new HtmlReporter({
+            baseDirectory: 'test_output/reports',
+            preserveDirectory: false,
+            docTitle: 'The Beautiful Report'
+        }).getJasmine2Reporter());
     }
 }
