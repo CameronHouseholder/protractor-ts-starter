@@ -29,12 +29,18 @@ export default class CalculatorPage extends BasePage {
     }
 
     public async selectOperator(operator: string) {
-        await this.clickElem(this.sddOperator);
-        await this.clickElem(element(by.cssContainingText("option", operator)));
+        await this.selectElemOptionByText(this.sddOperator, operator);
     }
 
     public async clickGo() {
         await this.clickElem(this.btnGo);
+    }
+
+    public async calculate(firstNumber: string, secondNumber: string, operator: string) {
+        await this.setFirstNumber(firstNumber);
+        await this.setSecondNumber(secondNumber);
+        await this.selectOperator(operator);
+        await this.clickGo();
     }
 
     public async getResult(): Promise<string> {
